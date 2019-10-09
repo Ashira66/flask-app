@@ -1,5 +1,5 @@
 
-from flask import Flask, request, json
+from flask import Flask, request, json, jsonify
 
 recommendations = {
 "Biosphere":['Clean water and sanitation', 'Climate action', 'Life below water', 'Life on land'],
@@ -10,15 +10,14 @@ recommendations = {
 
 app = Flask(__name__)
 
-@app.route('/recommend', methods=['POST'])
+@app.route('/recommend/', methods=['GET', 'POST'])
 def post_():
+    na = request.args.get("anand")
+    ha=na.split("_")
     rr=[]
-    json_data = request.json
-    i=json_data['interest']
-    for j in i:
+    for j in ha:
         rr=rr+recommendations[j]
-    return json.dumps({'status': 'success', 'recommendations': rr}), 201
-
+    return (" ".join(rr))
 
 if __name__ == '__main__':
     app.run()
