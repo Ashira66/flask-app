@@ -6,11 +6,11 @@ recommendations = {
 "Economy":['Decent work and economic growth', 'Industry, innovation and infrastructure', 'Reduced inequalities', 'Responsible consumption and production']
 }
 
-api = Flask(__name__)
+app = Flask(__name__)
 
-@api.route("/")
+@app.route("/")
 def home():
     return "Hello, World!"
 
 if __name__ == "__main__":
-    api.run()
+    app.run()
