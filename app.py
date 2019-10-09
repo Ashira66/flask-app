@@ -2,7 +2,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
-@app.route("/")
+@api.route("/",methods=['POST'])
 def home():
     return "Hello, World!"
 
