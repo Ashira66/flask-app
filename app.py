@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request,redirect
 
 recommendations = {
 "Biosphere":['Clean water and sanitation', 'Climate action', 'Life below water', 'Life on land'],
@@ -8,16 +8,16 @@ recommendations = {
 
 app = Flask(__name__)
 
-# To pass parameters: http://127.0.0.1:5000/recommend?interests=Economy_Society
-
 @app.route('/recommend', methods=['GET', 'POST'])
 def post_():
-    na = request.args.get("interests")
-    ha=na.split("_")
+    hh = []
+    na = request.values.getlist('checkbox')
     rr=[]
-    for j in ha:
+    for j in na:
         rr=rr+recommendations[j]
-    return "_".join(rr)
+    u = "_".join(rr)
+    url = "https://smashsdgs.me/recommend.php?actions=" + u
+    return redirect(url, code=302)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
