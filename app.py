@@ -1,3 +1,4 @@
+
 from flask import Flask, request, json
 
 recommendations = {
@@ -6,11 +7,18 @@ recommendations = {
 "Economy":['Decent work and economic growth', 'Industry, innovation and infrastructure', 'Reduced inequalities', 'Responsible consumption and production']
 }
 
+
 app = Flask(__name__)
 
-@app.route("/")
-def home():
-    return "Hello, World!"
+@app.route('/recommend', methods=['POST'])
+def post_():
+    rr=[]
+    json_data = request.json
+    i=json_data['interest']
+    for j in i:
+        rr=rr+recommendations[j]
+    return json.dumps({'status': 'success', 'recommendations': rr}), 201
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     app.run()
